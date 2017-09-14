@@ -44,4 +44,40 @@ Para fechar o container
 $ exit
 ```
 
-### Imagens e Containers
+## Imagens e Containers
+
+No [hub](https://hub.docker.com/explore) do docker são exibidos a lista de imagens publicadas.
+
+Para listar as imagens disponiveis localmente
+```sh
+$ docker images
+```
+
+Caso queria baixar a imagem sem executar o container pode ser usar docker pull
+
+```sh
+$ docker pull ghost:latest
+```
+
+Para acessar via porta, é necessário mapear como o parametro -p na execucao do container. ([Porta do computador]:[Porta do container])
+
+```sh
+$ docker run ghost -it --rm -p 2368:2368
+```
+
+## Criando Nossa Primeira Imagem
+
+Pode se criar uma imagem a partir de um estado de um container.
+Por exemplo, pode ser executar um container baseado em uma imagem do ubuntu, instalar alguma aplicação e depois criar uma outra imagem a partir dele.
+Para isto basta executar:
+
+```sh
+$ docker commit [id] codecasts/ffmpeg
+```
+Será criado localmente uma imagem com o nome codecasts/ffmpeg
+
+Para compartilhar diretórios com o container (montar volumes) deve ser passar o parametro -v com [diretorio local]:[diretorio do container]
+
+```sh
+$ docker run codecasts/ffmpeg -it --rm -v /home//hernanidev/videos/edited:/videos /bin/bash
+```
